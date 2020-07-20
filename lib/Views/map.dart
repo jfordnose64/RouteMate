@@ -10,6 +10,19 @@ class Map extends StatefulWidget {
 class _MapState extends State<Map> {
   Completer<GoogleMapController> _controller = Completer();
 
+  List<Marker> allMarkers = [];
+  @override
+  void initState() {
+    super.initState();
+    allMarkers.add(Marker(
+        markerId: MarkerId('Marker'),
+        draggable: false,
+        onTap: () {
+          print('Marker Tapped');
+        },
+        position: LatLng(23, 23)));
+  }
+
   static final CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),
     zoom: 14.4746,
@@ -30,6 +43,7 @@ class _MapState extends State<Map> {
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },
+        markers: Set.from(allMarkers),
       ),
       // floatingActionButton: FloatingActionButton.extended(
       //   onPressed: _goToTheLake,
@@ -37,10 +51,5 @@ class _MapState extends State<Map> {
       //   icon: Icon(Icons.directions_boat),
       // ),
     );
-  }
-
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
   }
 }
