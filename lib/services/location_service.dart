@@ -1,37 +1,40 @@
 import 'dart:async';
 import 'package:RouteMate/data_models/user_location.dart';
 import 'package:location/location.dart';
-
+import 'package:location_permissions/location_permissions.dart';
 
 class LocationService {
+  
   UserLocation _currentLocation;
 
-  var location = Location();
+  Location location = Location();
 
-  StreamController<UserLocation>  _locationController = 
+  StreamController<UserLocation> _locationController =
       StreamController<UserLocation>.broadcast();
 
   LocationService() {
     location.requestPermission().then((granted) {
-      if (granted){
+      if (!= granted) {
         location.onLocationChanged().listen((locationData) {
-          if(locationData != null) {
+          if (locationData != null) {
             _locationController.add(UserLocation(
-              latitude: locationData.latitude, longitude: locationData.longitude
-              ));
-             }
-          });
-        }
-    });  
+              latitude: locationData.latitude,
+              longitude: locationData.longitude,
+            ));
+          }
+        });
+      }
+    });
   }
 
   Stream<UserLocation> get locationStream => _locationController.stream;
 
   Future<UserLocation> getLocation() async {
-    try{
+    try {
       var userLocation = await location.getLocation();
-      _currentLocation = UserLocation(latitude: userLocation.latitude, longitude: userLocation.longitude )
-    }catch(e){
+      _currentLocation = UserLocation(
+          latitude: userLocation.latitude, longitude: userLocation.longitude);
+    } catch (e) {
       print(e);
     }
     return _currentLocation;
