@@ -15,7 +15,7 @@ class Message extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              child: Text('Drawer Header'),
+              child: Text('RouteMate'),
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
