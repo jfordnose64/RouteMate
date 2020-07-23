@@ -11,7 +11,6 @@ class _GetLocationPageState extends State<Account> {
 
   void initState() {
     super.initState();
-    PermissionStatus.granted
   }
 
   var location = new Location();
