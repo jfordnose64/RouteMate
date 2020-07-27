@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:location/location.dart';
+import 'package:geolocator/geolocator.dart';
 
 class Account extends StatefulWidget {
   @override
@@ -7,41 +7,35 @@ class Account extends StatefulWidget {
 }
 
 class _GetLocationPageState extends State<Account> {
-  var _status;
+  String latitude = "";
+  String longitude = "";
 
-  void initState() {
-    super.initState();
+  void _getCurrentLocation() async {
+    Position position = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    print(position.latitude);
+
+    setState(() {
+      latitude = "${position.latitude}";
+      longitude = "${position.longitude}";
+    });
   }
-
-  var location = new Location();
-
-  Map<String, double> userLocation;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Center(
+      body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            userLocation == null
-                ? CircularProgressIndicator()
-                : Text("Location:" +
-                    userLocation["latitude"].toString() +
-                    " " +
-                    userLocation["longitude"].toString()),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: RaisedButton(
-                onPressed: () {},
-                color: Colors.blue,
-                child: Text(
-                  "Get Location",
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ),
+            FlatButton(
+                onPressed: () {
+                  _getCurrentLocation();
+                },
+                child: Text("Find Location")),
+            Text(latitude),
+            Text(longitude)
           ],
         ),
       ),

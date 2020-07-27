@@ -12,7 +12,7 @@ class Map extends StatefulWidget {
 
 class _MapState extends State<Map> {
   GoogleMapController _controller;
-  Location _locationTracker = Location();
+  Location _locationTracker = new Location();
   StreamSubscription _locationSubscription;
   Marker marker;
   Circle circle;
@@ -26,7 +26,7 @@ class _MapState extends State<Map> {
 
   Future<Uint8List> getMarker() async {
     ByteData byteData = await DefaultAssetBundle.of(context)
-        .load("lib/assts/icons8-car-24.png");
+        .load("lib/assets/icons8-car-24.png");
     return byteData.buffer.asUint8List();
   }
 
@@ -81,6 +81,7 @@ class _MapState extends State<Map> {
       if (e.code == 'PERMISSION_DENIED') {
         debugPrint("Permission Denied");
       }
+      print(e);
     }
   }
 

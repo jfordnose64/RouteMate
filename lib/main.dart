@@ -3,6 +3,9 @@ import 'package:RouteMate/Views/home.dart';
 import 'package:RouteMate/Views/map.dart';
 import 'package:RouteMate/app.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
+import './models/user_location.dart';
+import './services/location_service.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,20 +15,22 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      initialRoute: '/',
-      routes: {
-        '/': (context) => App(),
-        '/map': (context) => Map(),
-        '/home': (context) => Home(),
-        '/account': (context) => Account()
-      },
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-    );
+    return StreamProvider<UserLocation>(
+        builder: (context) => LocationService().locationStream,
+        child: MaterialApp(
+          title: 'Flutter Demo',
+          initialRoute: '/',
+          routes: {
+            '/': (context) => App(),
+            '/map': (context) => Map(),
+            '/home': (context) => Home(),
+            '/account': (context) => Account()
+          },
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+        ));
   }
 }
 
