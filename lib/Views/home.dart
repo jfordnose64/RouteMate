@@ -36,7 +36,7 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(
               icon: new Icon(Icons.directions_car), title: new Text('Map')),
           BottomNavigationBarItem(
-              icon: new Icon(Icons.person), title: new Text('Account'))
+              icon: new Icon(Icons.person), title: new Text('Test Location'))
         ],
       ),
     );
