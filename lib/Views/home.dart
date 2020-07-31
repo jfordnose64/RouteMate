@@ -32,7 +32,7 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.grey,
         items: [
           BottomNavigationBarItem(
-              icon: new Icon(Icons.home), title: new Text('Message')),
+              icon: new Icon(Icons.home), title: new Text('Routes')),
           BottomNavigationBarItem(
               icon: new Icon(Icons.directions_car), title: new Text('Map')),
           BottomNavigationBarItem(
