@@ -7,7 +7,7 @@ class Account extends StatefulWidget {
 }
 
 class _GetLocationPageState extends State<Account> {
-  String latitude = "";
+  String latitude = "142";
   String longitude = "";
 
   void _getCurrentLocation() async {
